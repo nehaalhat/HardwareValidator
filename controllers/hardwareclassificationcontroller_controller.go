@@ -47,7 +47,8 @@ func (r *HardwareClassificationControllerReconciler) Reconcile(req ctrl.Request)
 	if extractedProfileList == nil && len(extractedProfileList) == 0 {
 		return ctrl.Result{}, nil
 	}
-	fmt.Println("OUTPUT************************", extractedProfileList)
+	//fmt.Println("OUTPUT************************", extractedProfileList)
+	fmt.Printf("OUTPUT**************** %+v\n", extractedProfileList)
 	return ctrl.Result{}, nil
 }
 
