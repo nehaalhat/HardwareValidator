@@ -16,3 +16,14 @@ spec:
           expectedRAM: 16
           expectedSystemVendor:
                 name: Dell Inc.
+        - profileName: Profile 2
+          expectedCPU:
+                count: 27
+          expectedDisk:
+                sizeBytesGB: 52
+                numberOfDisks: 10
+          expectedNICS:
+                numberOfNICS: 62
+          expectedRAM: 61
+          expectedSystemVendor:
+                name: Dell Inc.

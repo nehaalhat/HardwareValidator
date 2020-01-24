@@ -53,7 +53,7 @@ func (r *HardwareClassificationControllerReconciler) Reconcile(req ctrl.Request)
 	}
 	// your logic here
 
-	fmt.Println("OUTPUT************************", hardwareClassification)
+	fmt.Println("OUTPUT************************", hardwareClassification.Spec.ExpectedHardwareConfiguration)
 	return ctrl.Result{}, nil
 }
 
