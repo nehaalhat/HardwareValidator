@@ -79,6 +79,14 @@ type HardwareClassificationController struct {
 	Status HardwareClassificationControllerStatus `json:"status,omitempty"`
 }
 
+// +kubebuilder:object:root=true
+
+// HardwareClassificationControllerList contains a list of HardwareClassificationController
+type HardwareClassificationControllerList struct {
+	metav1.TypeMeta `json:",inline"`
+	metav1.ListMeta `json:"metadata,omitempty"`
+	Items           []HardwareClassificationController `json:"items"`
+}
 
 func init() {
 	SchemeBuilder.Register(&HardwareClassificationController{}, &HardwareClassificationControllerList{})
