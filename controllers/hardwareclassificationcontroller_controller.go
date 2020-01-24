@@ -43,20 +43,29 @@ func (r *HardwareClassificationControllerReconciler) Reconcile(req ctrl.Request)
 	ctx := context.Background()
 	_ = r.Log.WithValues("hardwareclassificationcontroller", req.NamespacedName)
 
-	hardwareClassification := &metal3iov1alpha1.HardwareClassificationController{}
-
-	if err := r.Client.Get(ctx, req.NamespacedName, hardwareClassification); err != nil {
-		if apierrors.IsNotFound(err) {
-			return ctrl.Result{}, nil
-		}
-		return ctrl.Result{}, err
+	extractedProfileList := extractExpectedHardwareConfiguration(ctx, r, req)
+	if extractedProfileList == nil && len(extractedProfileList) == 0 {
+		return ctrl.Result{}, nil
 	}
-	// your logic here
-
-	fmt.Println("OUTPUT************************", hardwareClassification.Spec.ExpectedHardwareConfiguration)
+	fmt.Println("OUTPUT************************", extractedProfileList)
 	return ctrl.Result{}, nil
 }
 
+// ExtractExpectedHardwareConfiguration extracts Expected Hardware Configuration
+func extractExpectedHardwareConfiguration(ctx context.Context, r *HardwareClassificationControllerReconciler, req ctrl.Request) []metal3iov1alpha1.ExpectedHardwareConfiguration {
+
+	hardwareClassification := &metal3iov1alpha1.HardwareClassificationController{}
+	if err := r.Client.Get(ctx, req.NamespacedName, hardwareClassification); err != nil {
+		if apierrors.IsNotFound(err) {
+			return nil
+		}
+		return nil
+	}
+
+	return hardwareClassification.Spec.ExpectedHardwareConfiguration
+}
+
+//SetupWithManager Created a new manager
 func (r *HardwareClassificationControllerReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&metal3iov1alpha1.HardwareClassificationController{}).
